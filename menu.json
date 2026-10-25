@@ -1,0 +1,46 @@
+{
+       "items": [
+	        {
+		"name": "Ubuntu",
+		"priority": 1,
+		"items": [
+		         {
+                         "name": "1. Install Ubuntu", 
+                         "priority": 2, 
+                         "action": "sh launch-install_ubuntu.sh",
+                         "exitmenu": true
+		         },
+                         {
+                         "name": "2. install utils",
+                         "priority": 3,
+                         "action": "sh launch-install_utils.sh",
+                         "exitmenu": true
+                         },
+		         {
+                         "name": "3. Install xfce4", 
+                         "priority": 4, 
+                         "action": "sh launch-install_xfce4.sh",
+                         "exitmenu": true
+		         },
+		         {
+	                 "name": "Launch xfce4",
+                         "priority": 5,
+	                 "action": "sh launch-launch_xfce4.sh", 
+                         "exitmenu": true
+		         },
+		         {
+                         "name": "Drop into shell", 
+                         "priority": 6, 
+                         "action": "sh launch-launch_ubuntu.sh",
+                         "exitmenu": true
+		         },
+		         {
+		         "name": "Uninstall ubuntu",
+	                 "priority": 7,
+                         "action": "sh launch-uninstall.sh",
+	                 "exitmenu": true
+	                 }
+		         ]
+	}
+	]
+}
