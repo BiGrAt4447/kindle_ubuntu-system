@@ -1,6 +1,6 @@
 # Install
 
-* [jailbreak](https://kindlemodding.org/jailbreak-wizard.html)) and install [KUAL](https://www.mobileread.com/forums/showthread.php?t=203326) /!\ The one from kindlemodding is broken take the mobile read one.
+* [jailbreak](https://kindlemodding.org/jailbreak-wizard.html) and install [KUAL](https://www.mobileread.com/forums/showthread.php?t=203326) /!\ The one from kindlemodding is broken take the mobile read one.
 * install [kterm](https://github.com/bfabiszewski/kterm/releases)
 * copy `extensions` to Kindle.
 
