@@ -12,24 +12,24 @@ Just an internet connection and free storage on your kindle
 
 # Ubuntu
 
-## from kual
+### from kual
 
 launch the kual booklet and select ubuntu
 select install ubuntu
 
-## from kterm
+### from kterm
 
 go to the kindle_ubuntu-system/bin folder
 then run the following command ./install_ubuntu.sh
 
 # XFCE4
 
-## from kual
+### from kual
 
 launch the kual booklet and select Ubuntu
 select 'install xfce4'
 
-## from kterm
+### from kterm
 
 go to the kindle_ubuntu-system/bin folder
 then run the following command ./install_xfce4.sh
@@ -37,25 +37,25 @@ then run the following command ./install_xfce4.sh
 
 # Launch shell
 
-## from kual
+### from kual
 launch the kual booklet and select Ubuntu
 select 'Drop into shell'
 
-## from kterm
+### from kterm
 go to the kindle_ubuntu-system/bin folder
 then run the following command ./launch_ubuntu.sh
 
 
 # Launch XFCE4
 
-## from kual
+### from kual
 launch the kual booklet and select Ubuntu
 select Launch xfce4
 
-## from kterm
+### from kterm
 go to the kindle_ubuntu-system/bin folder
 then run the following command ./launch_xfce4.sh
 
 
 
-### Made by BiGrAt447
+#### Made by BiGrAt447
