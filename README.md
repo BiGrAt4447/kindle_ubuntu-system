@@ -1,14 +1,10 @@
-# Install
+# Requirements
 
 * [jailbreak](https://kindlemodding.org/jailbreak-wizard.html) and install [KUAL](https://www.mobileread.com/forums/showthread.php?t=203326) /!\ The one from kindlemodding is broken take the mobile read one.
 * install [kterm](https://github.com/bfabiszewski/kterm/releases)
 * copy `extensions` to Kindle.
 
-# Requirements
-
-Just an internet connection and free storage on your kindle
-
-# Installations
+# How to install
 
 ## Ubuntu
 
@@ -34,8 +30,9 @@ select 'install xfce4'
 go to the kindle_ubuntu-system/bin folder
 then run the following command ./install_xfce4.sh
 
+# How to launch
 
-## Launch shell
+## shell
 
 ### from kual
 launch the kual booklet and select Ubuntu
@@ -46,7 +43,7 @@ go to the kindle_ubuntu-system/bin folder
 then run the following command ./launch_ubuntu.sh
 
 
-## Launch XFCE4
+## XFCE4
 
 ### from kual
 launch the kual booklet and select Ubuntu
