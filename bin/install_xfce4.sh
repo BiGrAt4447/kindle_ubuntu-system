@@ -109,16 +109,22 @@ Type=Application
 DesktopNames=XFCE
 XEOF
 
-mkdir -p ~/.config/autostart && cat << 'LEOF' > ~/.config/autostart/onboard.desktop
+# Configure Onboard for the Kindle user
+mkdir -p /home/kindle/.config/autostart
+
+cat > /home/kindle/.config/autostart/onboard.desktop <<'LEOF'
 [Desktop Entry]
+Version=1.0
 Type=Application
 Name=Onboard
+Comment=Virtual keyboard
 Exec=onboard
+Terminal=false
 Hidden=false
-NoDisplay=false
 X-GNOME-Autostart-enabled=true
-OnlyShowIn=XFCE;
 LEOF
+
+chown -R kindle:kindle /home/kindle/.config
 
 apt clean
 EOF
