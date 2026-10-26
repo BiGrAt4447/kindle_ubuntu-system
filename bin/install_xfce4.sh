@@ -17,7 +17,10 @@ cleanup() {
     umount "$MNT/sys" 2>/dev/null || true
     umount "$MNT" 2>/dev/null || true
 }
+
 trap cleanup EXIT HUP INT TERM
+
+mkdir -p "$MNT/dev" "$MNT/dev/pts" "$MNT/proc" "$MNT/sys" "$MNT/tmp"
 
 mount -o bind /dev "$MNT/dev"
 mount -o bind /dev/pts "$MNT/dev/pts"
@@ -29,10 +32,11 @@ chroot "$MNT" /bin/bash <<EOF
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
-echo "[installer] Updating…"
+echo "[installer] Updating..."
 apt update
 
-echo "[installer] Installing XFCE4 and utils…"
+echo "[installer] Installing XFCE4, Onboard and dependencies..."
+
 apt install -y --no-install-recommends \
     xfce4 xfce4-session xfce4-panel xfce4-terminal \
     xfce4-settings xfce4-power-manager xfwm4 \
@@ -41,7 +45,12 @@ apt install -y --no-install-recommends \
     xserver-xorg-core xserver-xorg-video-fbdev xserver-xephyr \
     xinit xinput dbus-x11 dbus \
     openssh-client gpg-agent \
-    accountsservice onboard
+    accountsservice \
+    onboard onboard-data \
+    gir1.2-atspi-2.0 \
+    at-spi2-core \
+    dconf-gsettings-backend \
+    sudo
 
 # Create the normal user if needed
 if ! id kindle >/dev/null 2>&1; then
@@ -60,8 +69,8 @@ fi
 locale-gen "$LANGUAGE"
 update-locale LANG="$LANGUAGE"
 
-echo "[installer] Configuring XFCE4"
-# Configure Xorg framebuffer
+echo "[installer] Configuring Xorg framebuffer..."
+
 mkdir -p /etc/X11
 
 cat > /etc/X11/xorg.conf <<'XEOF'
@@ -87,7 +96,8 @@ Section "Screen"
 EndSection
 XEOF
 
-# Configure LightDM
+echo "[installer] Configuring LightDM..."
+
 cat > /etc/lightdm/lightdm.conf <<'LEOF'
 [LightDM]
 minimum-display-number=0
@@ -109,36 +119,57 @@ Type=Application
 DesktopNames=XFCE
 XEOF
 
-# Configure Onboard for the Kindle user
-mkdir -p /home/kindle/.config/autostart
+echo "[installer] Configuring Onboard..."
+
+# Remove the incorrect root autostart configuration, if present.
+rm -f /root/.config/autostart/onboard.desktop
+
+# Create the autostart directory for the actual desktop user.
+install -d -o kindle -g kindle -m 0755 \
+    /home/kindle/.config/autostart
 
 cat > /home/kindle/.config/autostart/onboard.desktop <<'LEOF'
 [Desktop Entry]
 Version=1.0
 Type=Application
 Name=Onboard
-Comment=Virtual keyboard
+Comment=On-screen keyboard
 Exec=onboard
 Terminal=false
 Hidden=false
 X-GNOME-Autostart-enabled=true
+OnlyShowIn=XFCE;
 LEOF
 
+chown kindle:kindle /home/kindle/.config/autostart/onboard.desktop
+
+# Configure Onboard to use GTK input events when this setting exists.
+# Do not fail installation if this Onboard version lacks the setting.
+if command -v gsettings >/dev/null 2>&1; then
+    if su -s /bin/sh kindle -c \
+        "gsettings writable org.onboard.keyboard input-event-source" \
+        2>/dev/null | grep -qx true; then
+        su -s /bin/sh kindle -c \
+            "gsettings set org.onboard.keyboard input-event-source 'GTK'" \
+            || true
+    fi
+fi
+
+# Ensure the user owns their configuration directory.
 chown -R kindle:kindle /home/kindle/.config
+
+echo "[installer] Checking Onboard..."
+
+if command -v onboard >/dev/null 2>&1; then
+    echo "[installer] Onboard executable: $(command -v onboard)"
+else
+    echo "[installer] WARNING: onboard executable not found."
+fi
 
 apt clean
 EOF
 
-echo "[installer] XFCE4 and LightDM installed."
+echo "[installer] XFCE4 and Onboard configured."
 echo "[installer] Login: kindle / Password: kindle"
-
-cleanup() {
-    umount "$MNT/dev/pts" 2>/dev/null || true
-    umount "$MNT/dev" 2>/dev/null || true
-    umount "$MNT/proc" 2>/dev/null || true
-    umount "$MNT/sys" 2>/dev/null || true
-    umount "$MNT" 2>/dev/null || true
-}
-trap cleanup EXIT HUP INT TERM
 
 sh /mnt/us/extensions/kindle_ubuntu-system/bin/press_any_key.sh
