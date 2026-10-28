@@ -1,6 +1,4 @@
-
 #!/bin/sh
-
 set -eu
 
 ROOT="/mnt/us/ubuntu"
@@ -45,10 +43,6 @@ echo "[info] HOME=$HOME DISPLAY=$DISPLAY"
 SIZE=$(xwininfo -root -display :0 | egrep "geometry" | cut -d" " -f4 | cut -d"+" -f1)
 
 echo "[info] Display size: $SIZE"
-
-#if [ ! -S /run/dbus/system_bus_socket ]; then
-#    dbus-daemon --system --fork
-#fi
 
 echo "[launcher] Starting Xephyr"
 env DISPLAY=:0 Xephyr :1 \
