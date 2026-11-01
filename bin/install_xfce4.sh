@@ -31,12 +31,6 @@ mount -t sysfs sysfs "$MNT/sys"
 
 mntroot rw
 
-# Copying Chromium to have web browser in Ubuntu
-echo "[installer] Copying Chromium to Ubuntu…"
-cp -rt /mnt/us/extensions/kindle_ubuntu-system/bin/chromium-armhf /mnt/us/ubuntu/mnt/opt
-echo "[installer] Chromium copied successfully"
-sleep 2
-
 # Creating startgui.sh
 echo "[installer] Creating startgui.sh…"
 echo "$STARTGUI" > "$MNT/startgui.sh"
