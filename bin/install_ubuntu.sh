@@ -5,7 +5,7 @@ ROOT="/mnt/us/ubuntu"
 IMG="$ROOT/ubuntu.ext4"
 SIZE_MB=4000 #<-- change the size of the Ubuntu root here
 # Change URL if you want a different Ubuntu release (this is the armhf release)
-URL="https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/ubuntu-base-22.04-base-armhf.tar.gz"
+URL="https://cdimage.ubuntu.com/ubuntu-base/releases/26.04/release/ubuntu-base-26.04-base-armhf.tar.gz"
 
 echo "[installer] Ensure to have at least $SIZE_MB MB free on your kindle storage (3 dots menu in the upper right --> settings --> device options --> storage management)"
 
